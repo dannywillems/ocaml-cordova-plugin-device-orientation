@@ -40,14 +40,9 @@ See the official documentation
 The device plugin creates a new object called *navigator.compass*, but the object is
 available when the *deviceready* event is handled.
 
-We don't provide a *compass* variable in this plugin (as said in the official
-documentation on js_of_ocaml). If we did, *compass* will be set to **undefined**
-because the *navigator.compass* javascript object doesn't exist when we create
-the variable.
-
-Instead, we provide a function *Compass.t* of type unit -> Compass.compass
+We provide a function *Compass.t* of type unit -> Compass.compass
 which does the binding when you call it.
-So, use
+So, use (with js_of_ocaml)
 
 ```OCaml
 let on_device_ready _ =
