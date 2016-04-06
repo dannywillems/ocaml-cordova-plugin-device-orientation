@@ -1,5 +1,7 @@
 # ocaml-cordova-plugin-device-orientation
 
+* gen_js_api (master branch): [![Build Status](https://travis-ci.org/dannywillems/ocaml-cordova-plugin-device-orientation.svg?branch=master)](https://travis-ci.org/dannywillems/ocaml-cordova-plugin-device-orientation)
+
 Binding to
 [cordova-plugin-device-orientation](https://github.com/apache/cordova-plugin-device-orientation)
 
