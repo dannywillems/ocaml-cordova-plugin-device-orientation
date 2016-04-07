@@ -1,1 +1,1 @@
-let t = Compass.t () in t#clear_watch 4
+let t = Cordova_compass.t () in t#clear_watch 4

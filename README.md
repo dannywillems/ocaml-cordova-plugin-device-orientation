@@ -64,13 +64,13 @@ See the official documentation
 The device plugin creates a new object called *navigator.compass*, but the object is
 available when the *deviceready* event is handled.
 
-We provide a function *Compass.t* of type unit -> Compass.compass
+We provide a function *Cordova_compass.t* of type unit -> Cordova_compass.compass
 which does the binding when you call it.
 So, use (with js_of_ocaml)
 
 ```OCaml
 let on_device_ready _ =
-  let c = Compass.t () in
+  let c = Cordova_compass.t () in
   (* Some code *)
 
 let _ =

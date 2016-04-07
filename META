@@ -1,3 +1,3 @@
 version = "dev"
 description = "Binding to the device orientation cordova plugin using gen_js_api"
-archive(byte) = "compass.cma"
+archive(byte) = "cordova_compass.cma"
