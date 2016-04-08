@@ -1,8 +1,4 @@
-################################################################################
-MLI_FILE		= cordova_compass.mli
-## Name which will be used in -package with ocamlfind
-LIB_NAME		= cordova-plugin-device-orientation
-################################################################################
+include Makefile.conf
 
 ################################################################################
 CC				= ocamlc
