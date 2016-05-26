@@ -59,22 +59,3 @@ cordova plugin add cordova-plugin-device-orientation
 
 See the official documentation
 [cordova-plugin-device-orientation](https://github.com/apache/cordova-plugin-device-orientation)
-
-## ! BE CAREFUL !
-
-The device plugin creates a new object called *navigator.compass*, but the object is
-available when the *deviceready* event is handled.
-
-We provide a function *Cordova_compass.t* of type unit -> Cordova_compass.compass
-which does the binding when you call it.
-So, use (with js_of_ocaml)
-
-```OCaml
-let on_device_ready _ =
-  let c = Cordova_compass.t () in
-  (* Some code *)
-
-let _ =
-  Dom.addEventListener Dom_html.document (Dom.Event.make "deviceready")
-  (Dom_html.handler on_device_ready) Js._false
-```
