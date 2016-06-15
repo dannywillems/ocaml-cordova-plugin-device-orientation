@@ -2,12 +2,7 @@
 (* Default value for frequency is 100 and for filter is 0 (see Compass.js in the
  * original plugin)
  *)
-class options : Ojs.t ->
-  object
-    inherit Ojs.obj
-    method frequency : int
-    method filter    : float
-  end
+type options = private Ojs.t
 
 val create_options :
   ?frequency:(int [@js.default 100])  ->
@@ -18,60 +13,44 @@ val create_options :
 (* -------------------------------------------------------------------------- *)
 
 (* -------------------------------------------------------------------------- *)
-class heading : Ojs.t ->
-  object
-    inherit Ojs.obj
-    method magnetic_heading : float
-    method true_heading     : float
-    method heading_accuracy : float
-    method timestamp        : int
-  end
+type heading = private Ojs.t
+
+val heading_magnetic_heading : heading -> float
+[@@js.get "magneticHeading"]
+val heading_true_heading     : heading -> float
+[@@js.get "trueHeading"]
+val heading_heading_accuracy : heading -> float
+[@@js.get "headingAccuracy"]
+val heading_timestamp        : heading -> int
+[@@js.get "timestamp"]
 (* -------------------------------------------------------------------------- *)
 
 (* -------------------------------------------------------------------------- *)
-class error : Ojs.t ->
-  object
-    inherit Ojs.obj
-    method code             : int
-  end
+type error = private Ojs.t
 
-(* Sum type for error code. It's useful to use type instead of integer
- * Unknown constructor is added for the pattern matching.
- *)
-[@@@js.stop]
-type type_error
-val code_to_type : int -> type_error
-[@@@js.start]
-
-[@@@js.implem
 type type_error =
-  | Compass_internal_error
-  | Compass_not_supported
-  | Unknown
+  | Compass_internal_error [@js 0]
+  | Compass_not_supported [@js 20]
+  [@@js.enum]
 
-let code_to_type c = match c with
-  | 0   ->  Compass_internal_error
-  | 20  ->  Compass_not_supported
-  | _   ->  Unknown
-]
+val error_code : error -> type_error
+[@@js.get "code"]
 (* -------------------------------------------------------------------------- *)
 
 (* -------------------------------------------------------------------------- *)
-class compass : Ojs.t ->
-  object
-    inherit Ojs.obj
-    method get_current_heading  : (heading  -> unit)  ->
-                                  (error    -> unit)  ->
-                                  unit
-    method watch_heading        : (heading  -> unit)  ->
-                                  (error    -> unit)  ->
-                                  options             ->
-                                  int
-    method clear_watch          : int -> unit
-  end
-(* -------------------------------------------------------------------------- *)
+val get_current_heading :
+  (heading  -> unit)  ->
+  (error    -> unit)  ->
+  unit
+[@@js.global "navigator.compass.getCurrentHeading"]
 
-(* -------------------------------------------------------------------------- *)
-val t : unit -> compass
-[@@js.get "navigator.compass"]
+val watch_heading :
+  (heading  -> unit)  ->
+  (error    -> unit)  ->
+  options             ->
+  int
+[@@js.global "navigator.compass.watchHeading"]
+
+val clear_watch : int -> unit
+[@@js.global "navigator.compass.clearWatch"]
 (* -------------------------------------------------------------------------- *)
