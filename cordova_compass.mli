@@ -45,9 +45,10 @@ val get_current_heading :
 [@@js.global "navigator.compass.getCurrentHeading"]
 
 val watch_heading :
-  (heading  -> unit)  ->
-  (error    -> unit)  ->
-  options             ->
+  (heading  -> unit)                                  ->
+  (error    -> unit)                                  ->
+  ?options:(options [@js.default create_options ()])  ->
+  unit                                                ->
   int
 [@@js.global "navigator.compass.watchHeading"]
 
